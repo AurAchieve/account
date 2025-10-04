@@ -61,9 +61,45 @@ app.post('/api/reset-password', async (req, res) => {
     }
 });
 
+// API endpoint to complete email verification
+app.post('/api/verify-email', async (req, res) => {
+    const { userId, secret } = req.body;
+
+    // Validation
+    if (!userId || !secret) {
+        return res.status(400).json({ 
+            success: false, 
+            message: 'Missing required fields' 
+        });
+    }
+
+    try {
+        const account = new Account(client);
+        
+        // Complete email verification
+        await account.updateVerification(userId, secret);
+        
+        res.json({ 
+            success: true, 
+            message: 'Email verified successfully! You can now use all features of your account.' 
+        });
+    } catch (error) {
+        console.error('Email verification error:', error);
+        res.status(400).json({ 
+            success: false, 
+            message: error.message || 'Failed to verify email. The link may be invalid or expired.' 
+        });
+    }
+});
+
 // Serve the password reset page
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+app.get('/resetpassword', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'reset-password.html'));
+});
+
+// Serve the email verification page
+app.get('/verify-email', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'verify-email.html'));
 });
 
 // Health check endpoint

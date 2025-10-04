@@ -5,6 +5,7 @@ A Node.js web application for password reset and email verifications using the A
 ## Features
 
 - 🔒 Secure password reset using Appwrite authentication
+- ✉️ Email verification support
 - 🎨 Material Design 3 UI with modern aesthetics
 - ✅ Client and server-side validation
 - 📱 Fully responsive design
@@ -54,12 +55,18 @@ PORT=3000
    - `users.write`
 5. Copy the API key and add it to your `.env` file
 
-### Password Reset Email Configuration
+### Email Template Configuration
 
-In your Appwrite project, configure the password reset email template to include a link to your application:
+In your Appwrite project, configure the email templates to include links to your application:
 
+**Password Reset Email:**
 ```
-https://your-domain.com/?userId={{user}}&secret={{secret}}
+https://your-domain.com/resetpassword?userId={{user}}&secret={{secret}}
+```
+
+**Email Verification Email:**
+```
+https://your-domain.com/verify-email?userId={{user}}&secret={{secret}}
 ```
 
 Replace `your-domain.com` with your actual domain where this application is hosted.
@@ -109,6 +116,34 @@ Completes the password reset process.
 }
 ```
 
+### `POST /api/verify-email`
+
+Completes the email verification process.
+
+**Request Body:**
+```json
+{
+  "userId": "user_id_from_email",
+  "secret": "secret_from_email"
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "message": "Email verified successfully! You can now use all features of your account."
+}
+```
+
+### `GET /resetpassword`
+
+Serves the password reset page.
+
+### `GET /verify-email`
+
+Serves the email verification page.
+
 ### `GET /health`
 
 Health check endpoint to verify the server is running.
@@ -122,12 +157,23 @@ Health check endpoint to verify the server is running.
 
 ## How It Works
 
+### Password Reset
+
 1. User requests a password reset from your main application
 2. Appwrite sends a password reset email with a link containing `userId` and `secret` parameters
-3. User clicks the link and lands on this password reset page
+3. User clicks the link and lands on the password reset page at `/resetpassword`
 4. User enters and confirms their new password
 5. The application calls Appwrite's `updateRecovery` method to complete the reset
 6. User receives confirmation and can log in with their new password
+
+### Email Verification
+
+1. User signs up for an account in your main application
+2. Appwrite sends an email verification email with a link containing `userId` and `secret` parameters
+3. User clicks the link and lands on the email verification page at `/verify-email`
+4. User clicks the "Verify Email" button
+5. The application calls Appwrite's `updateVerification` method to complete the verification
+6. User receives confirmation that their email is verified
 
 ## Security Features
 
