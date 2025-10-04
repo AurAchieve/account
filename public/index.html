@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Your Password</title>
+    
+    <!-- Material Design 3 CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Material 3 Color Tokens */
+            --md-sys-color-primary: #6750A4;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-primary-container: #EADDFF;
+            --md-sys-color-on-primary-container: #21005D;
+            --md-sys-color-secondary: #625B71;
+            --md-sys-color-on-secondary: #FFFFFF;
+            --md-sys-color-secondary-container: #E8DEF8;
+            --md-sys-color-on-secondary-container: #1D192B;
+            --md-sys-color-surface: #FEF7FF;
+            --md-sys-color-on-surface: #1D1B20;
+            --md-sys-color-surface-variant: #E7E0EC;
+            --md-sys-color-on-surface-variant: #49454F;
+            --md-sys-color-error: #B3261E;
+            --md-sys-color-on-error: #FFFFFF;
+            --md-sys-color-error-container: #F9DEDC;
+            --md-sys-color-on-error-container: #410E0B;
+            --md-sys-color-outline: #79747E;
+            --md-sys-color-surface-container-lowest: #FFFFFF;
+            --md-sys-color-surface-container-low: #F7F2FA;
+            --md-sys-color-surface-container: #F3EDF7;
+            --md-sys-color-surface-container-high: #ECE6F0;
+            --md-sys-color-surface-container-highest: #E6E0E9;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 16px;
+        }
+
+        .container {
+            background-color: var(--md-sys-color-surface-container-low);
+            border-radius: 28px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header .material-icons {
+            font-size: 48px;
+            color: var(--md-sys-color-primary);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface);
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: var(--md-sys-color-on-surface-variant);
+            line-height: 1.5;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .text-field {
+            width: 100%;
+            position: relative;
+        }
+
+        .text-field input {
+            width: 100%;
+            padding: 16px 16px;
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--md-sys-color-surface-container-highest);
+            color: var(--md-sys-color-on-surface);
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .text-field input:focus {
+            border-color: var(--md-sys-color-primary);
+            border-width: 2px;
+            padding: 15px 15px;
+        }
+
+        .text-field input::placeholder {
+            color: var(--md-sys-color-on-surface-variant);
+            opacity: 0.6;
+        }
+
+        .text-field label {
+            position: absolute;
+            left: 16px;
+            top: -8px;
+            background-color: var(--md-sys-color-surface-container-highest);
+            padding: 0 4px;
+            font-size: 12px;
+            color: var(--md-sys-color-on-surface-variant);
+            font-weight: 500;
+        }
+
+        .text-field input:focus + label {
+            color: var(--md-sys-color-primary);
+        }
+
+        .password-requirements {
+            font-size: 12px;
+            color: var(--md-sys-color-on-surface-variant);
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        .button-primary {
+            width: 100%;
+            padding: 14px 24px;
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.1px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .button-primary:hover {
+            background-color: #5339A3;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .button-primary:active {
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .button-primary:disabled {
+            background-color: var(--md-sys-color-on-surface);
+            opacity: 0.12;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .alert {
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+        }
+
+        .alert .material-icons {
+            font-size: 20px;
+        }
+
+        .alert.success {
+            display: flex;
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+        }
+
+        .alert.error {
+            display: flex;
+            background-color: var(--md-sys-color-error-container);
+            color: var(--md-sys-color-on-error-container);
+        }
+
+        .spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--md-sys-color-on-primary);
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading .spinner {
+            display: block;
+        }
+
+        .loading .button-text {
+            display: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 12px;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 24px;
+                border-radius: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="material-icons">lock_reset</span>
+            <h1>Reset Your Password</h1>
+            <p class="subtitle">Enter your new password below to complete the reset process.</p>
+        </div>
+
+        <div id="alert" class="alert">
+            <span class="material-icons" id="alert-icon">info</span>
+            <span id="alert-message"></span>
+        </div>
+
+        <form id="resetForm">
+            <div class="form-group">
+                <div class="text-field">
+                    <input type="password" id="password" name="password" placeholder="New Password" required>
+                    <label for="password">New Password</label>
+                </div>
+                <div class="password-requirements">
+                    Password must be at least 8 characters long
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="text-field">
+                    <input type="password" id="passwordConfirm" name="passwordConfirm" placeholder="Confirm Password" required>
+                    <label for="passwordConfirm">Confirm Password</label>
+                </div>
+            </div>
+
+            <button type="submit" class="button-primary" id="submitButton">
+                <span class="button-text">Reset Password</span>
+                <div class="spinner"></div>
+            </button>
+        </form>
+
+        <div class="footer">
+            <p>Need help? Contact support</p>
+        </div>
+    </div>
+
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+        const secret = urlParams.get('secret');
+
+        // Check if required parameters are present
+        if (!userId || !secret) {
+            showAlert('error', 'Invalid or missing reset link parameters. Please use the link from your email.');
+            document.getElementById('resetForm').style.display = 'none';
+        }
+
+        // Form submission
+        document.getElementById('resetForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const password = document.getElementById('password').value;
+            const passwordConfirm = document.getElementById('passwordConfirm').value;
+            const submitButton = document.getElementById('submitButton');
+
+            // Client-side validation
+            if (password !== passwordConfirm) {
+                showAlert('error', 'Passwords do not match. Please try again.');
+                return;
+            }
+
+            if (password.length < 8) {
+                showAlert('error', 'Password must be at least 8 characters long.');
+                return;
+            }
+
+            // Show loading state
+            submitButton.classList.add('loading');
+            submitButton.disabled = true;
+            hideAlert();
+
+            try {
+                const response = await fetch('/api/reset-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        userId,
+                        secret,
+                        password,
+                        passwordConfirm
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showAlert('success', data.message);
+                    document.getElementById('resetForm').style.display = 'none';
+                } else {
+                    showAlert('error', data.message);
+                }
+            } catch (error) {
+                showAlert('error', 'An error occurred. Please try again later.');
+                console.error('Error:', error);
+            } finally {
+                submitButton.classList.remove('loading');
+                submitButton.disabled = false;
+            }
+        });
+
+        function showAlert(type, message) {
+            const alert = document.getElementById('alert');
+            const alertIcon = document.getElementById('alert-icon');
+            const alertMessage = document.getElementById('alert-message');
+
+            alert.className = 'alert ' + type;
+            alertMessage.textContent = message;
+            
+            if (type === 'success') {
+                alertIcon.textContent = 'check_circle';
+            } else {
+                alertIcon.textContent = 'error';
+            }
+        }
+
+        function hideAlert() {
+            const alert = document.getElementById('alert');
+            alert.className = 'alert';
+        }
+    </script>
+</body>
+</html>

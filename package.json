@@ -1,0 +1,25 @@
+{
+  "name": "account-helper",
+  "version": "1.0.0",
+  "description": "Backend repository for password reset and email verifications.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "appwrite",
+    "password-reset",
+    "email-verification",
+    "nodejs",
+    "express"
+  ],
+  "author": "AurAchieve",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "node-appwrite": "^20.0.0"
+  }
+}
