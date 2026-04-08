@@ -45,7 +45,7 @@ function VerificationContent() {
         await account.updateVerification(userId, secret);
 
         setStatus("success");
-        setMessage(`You can now start using AurAchieve. Have fun! ${userId}`);
+        setMessage(`You can now start using AurAchieve. Have fun!`);
       } catch {
         setStatus("error");
         setMessage("Verification failed. Please try the link again.");
