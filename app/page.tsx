@@ -1,12 +1,20 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Account, Client } from "appwrite";
 
 type VerificationStatus = "idle" | "success" | "error";
 
 export default function Home() {
+  return (
+    <Suspense fallback={<VerificationView status="idle" message="Verifying your email..." />}>
+      <VerificationContent />
+    </Suspense>
+  );
+}
+
+function VerificationContent() {
   const searchParams = useSearchParams();
   const [status, setStatus] = useState<VerificationStatus>("idle");
   const [message, setMessage] = useState("Verifying your email...");
@@ -47,6 +55,10 @@ export default function Home() {
     verifyEmail();
   }, [endpoint, projectId, secret, userId]);
 
+  return <VerificationView status={status} message={message} />;
+}
+
+function VerificationView({ status, message }: { status: VerificationStatus; message: string }) {
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
