@@ -9,10 +9,10 @@ export default function Home() {
             Welcome to AurAchieve
           </h1>
           <Link
-            href="/"
+            href="https://aurachieve.com"
             className="inline-flex rounded-md bg-black px-4 py-2 text-sm font-medium text-white dark:bg-zinc-100 dark:text-black"
           >
-            Home
+            Get Started
           </Link>
         </div>
       </main>
