@@ -59,7 +59,7 @@ function VerificationContent() {
         }
         
         setStatus("error");
-        setMessage("Verification failed. Please try the link again.");
+        setMessage("Verification failed. This might be because your email is already verified. Please try the link again if it isn't.");
       }
     };
 
