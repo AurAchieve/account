@@ -4,7 +4,7 @@ import { Suspense, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { Account, Client } from "appwrite";
 
-type VerificationStatus = "idle" | "success" | "error";
+type VerificationStatus = "idle" | "success" | "error" | "already-verified";
 
 export default function VerifyEmailPage() {
   return (
@@ -46,7 +46,18 @@ function VerificationContent() {
 
         setStatus("success");
         setMessage(`You can now start using AurAchieve. Have fun!`);
-      } catch {
+      } catch (error: unknown) {
+        // Check if it's an Appwrite error with a code property
+        if (error && typeof error === "object" && "code" in error) {
+          const appwriteError = error as { code?: number; message?: string };
+          
+          if (appwriteError.code === 409) {
+            setStatus("already-verified");
+            setMessage("Your email is already verified. You can start using AurAchieve!");
+            return;
+          }
+        }
+        
         setStatus("error");
         setMessage("Verification failed. Please try the link again.");
       }
@@ -64,7 +75,7 @@ function VerificationView({ status, message }: { status: VerificationStatus; mes
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            {status === "success" ? "Your email has been verified." : "Email verification"}
+            {status === "success" || status === "already-verified" ? "Your email has been verified." : "Email verification"}
           </h1>
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">{message}</p>
         </div>
